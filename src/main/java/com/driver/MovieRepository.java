@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import java.lang.Object;
+
 @Repository
 public class MovieRepository {
     private HashMap<String, Movie> movieMap;
@@ -51,17 +53,24 @@ public class MovieRepository {
 
     }
 
-    public Movie findMovie(String movie){
-        return movieMap.get(movie);
+    public Movie findMovie(String movieName){
+        Movie movie=null;
+        if(movieMap.containsKey(movieName))
+            movie=movieMap.get(movieName);
+        return movie ;
     }
 
-    public Director findDirector(String director){
-        return directorMap.get(director);
+    public Director findDirector(String directorName){
+//        Director director=null;
+//        if(directorMap.containsKey(directorName))
+//            director=directorMap.get(directorName);
+        return directorMap.get(directorName);
     }
 
     public List<String> findMoviesFromDirector(String director){
         List<String> moviesList = new ArrayList<String>();
-        if(directorMovieMapping.containsKey(director)) moviesList = directorMovieMapping.get(director);
+        if(directorMovieMapping.containsKey(director))
+            moviesList = directorMovieMapping.get(director);
         return moviesList;
     }
 
@@ -73,7 +82,7 @@ public class MovieRepository {
 
         List<String> movies = new ArrayList<String>();
         if(directorMovieMapping.containsKey(director)){
-            //1. Find the movie names by director from the pair
+            //1. Find the movie names by director from thex pair
             movies = directorMovieMapping.get(director);
 
             //2. Deleting all the movies from movieDb by using movieName
@@ -117,5 +126,18 @@ public class MovieRepository {
         }
         //clearing the pair.
         directorMovieMapping = new HashMap<>();
+    }
+//    get director name by Movie name
+    public String getDirectorByMovieName(String movieName){
+        for(String director:directorMovieMapping.keySet()){
+            List<String> movielist=new ArrayList<>();
+            movielist=directorMovieMapping.get(director);
+            for(String movie:movielist){
+                if(movie.equals(movieName)){
+                    return director;
+                }
+            }
+        }
+        return null;
     }
 }

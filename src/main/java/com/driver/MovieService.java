@@ -23,10 +23,12 @@ public class MovieService {
     }
 
     public Movie findMovie(String movieName){
+
         return movieRepository.findMovie(movieName);
     }
 
     public Director findDirector(String directorName){
+
         return movieRepository.findDirector(directorName);
     }
 
@@ -35,14 +37,20 @@ public class MovieService {
     }
 
     public List<String> findAllMovies(){
+
         return movieRepository.findAllMovies();
     }
 
     public void deleteDirector(String director){
+
         movieRepository.deleteDirector(director);
     }
 
     public void deleteAllDirectors(){
+
         movieRepository.deleteAllDirector();
+    }
+    public String getDirectorByMovieName(String movieName){
+        return movieRepository.getDirectorByMovieName(movieName);
     }
 }
